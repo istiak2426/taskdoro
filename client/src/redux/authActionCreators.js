@@ -36,7 +36,6 @@ export const auth = (email, password, mode) => dispatch => {
 
         email: email,
         password: password,
-
     }
 
 

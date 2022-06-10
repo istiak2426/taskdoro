@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import { useState } from "react";
 import List from "./List"
 
-import {createCategory, createProduct, getCategories, getProducts } from './apiCalls';
+import {createCategory, createProduct, getProducts } from './apiCalls';
 
 
 const Home = () => {
 
     const [products, setProducts] = useState([]);
-    const [categories, setCategories] = useState([])
-    const [term, setTerm] = useState(false);
+    // const [categories, setCategories] = useState([])
+    // const [term, setTerm] = useState(false);
     const [values, setValues] = useState({
         name: '',
         category: '',
@@ -28,10 +28,10 @@ const Home = () => {
                 setProducts(response.data);
             })
 
-        getCategories()
-            .then(response => {
-                setCategories(response.data)
-            })
+        // getCategories()
+        //     .then(response => {
+        //         setCategories(response.data)
+        //     })
 
     }, [values]);
 
@@ -51,9 +51,9 @@ const Home = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        createProduct(values, term)
+        createProduct(values)
         setValues({name: '',category: ''})
-        setTerm(!term)
+        // setTerm(!term)
     }
 
     
@@ -77,7 +77,7 @@ const Home = () => {
             onSubmit={handleSubmit}
         >
             <div className="form-group">
-                <label className="text-muted">Name:</label>
+                <label className="text-muted">Task Name:</label>
                 <input
                     name="name"
                     onChange={handleChange}
@@ -89,28 +89,32 @@ const Home = () => {
             </div>
 
             <div className="form-group">
-                <label className="text-muted">Selectors:</label>
+                <label className="text-muted">Chunk Size:</label>
                 <select name="category" value={category} onChange={handleChange} className="form-control" required>
                     <option value="">----Select one----</option>
-                    {categories && categories.map(item => (
+                    <option value="Heavy">Heavy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Light">Light</option>
+                 
+
+                    {/* {categories && categories.map(item => (
                         <option value={item._id} key={item._id}>{item.name}</option>
-                    ))}
+                    ))} */}
                 </select>
                 <br />
 
             </div>
 
 
-            <label>
+            {/* <label>
                 <input type="checkbox"
                     value={term}
                     onChange={() => setTerm(!term)}
                     required
                 />
                 &nbsp;&nbsp; Agree to term
-            </label>
-            <br />
-            <br />
+            </label> */}
+      
             <button className="btn btn-outline-primary" type="submit" >Save</button>
         </form>
     );
@@ -141,13 +145,15 @@ const Home = () => {
 
     return (
        
+        <div>
     
             <div className="row ">
+                <div className="col-3"></div>
                 <div className="col-6 ml-3">
 
                     <br/>
                     <br/>
-                    <h5>Please enter your name and pick the Sectors you are currently involved in.</h5>
+                    <h2>Minimum Effort, Maximum Result</h2>
 
                     {productForm()}
                     <br />
@@ -158,18 +164,31 @@ const Home = () => {
                         />
                     ))}
                 </div>
-                <div className="col-4 ">
-                    <br/>
-                    <br/>
-
-                    <h5>Create Selector</h5>
-               
-<br/>
-               {categoryForm()}
+                <div className="col-3"></div>
 
 
-                </div>
             </div>
+            <div className="row ">
+                <div className="col-3"></div>
+
+                <div className="col-6">
+                    <h1>*</h1>
+                    <h1>***</h1>
+                    <h1>*****</h1>
+                </div>
+      
+                <div className="col-3"></div>
+
+
+            </div>
+
+            </div>
+
+
+
+
+
+            
         
     
     );
